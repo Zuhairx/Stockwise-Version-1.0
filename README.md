@@ -1,4 +1,4 @@
-# StockWise - Tutorial Penggunaan
+# StockWise V 1.0 - Tutorial Penggunaan
 
 ## Persiapan Awal
 
