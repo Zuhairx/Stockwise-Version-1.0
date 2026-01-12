@@ -65,6 +65,13 @@ Setelah login, Anda akan melihat dashboard dengan:
    - Pilih produk dari tabel
    - Klik "Delete All"
    - Konfirmasi penghapusan
+5. **Import CSV**:
+   - Klik "Import CSV"
+   - Pilih file CSV yang berisi data produk
+   - Data akan diimpor dan diperbarui jika produk sudah ada
+6. **Export CSV**:
+   - Klik "Export CSV"
+   - Pilih lokasi penyimpanan file
 
 <img width="1045" height="1000" alt="image" src="https://github.com/user-attachments/assets/898232d1-f1c4-4d23-aaa7-614204d1c19f" />
 
@@ -85,6 +92,11 @@ Setelah login, Anda akan melihat dashboard dengan:
    - Pilih transaksi dari tabel
    - Klik "Delete All"
    - Konfirmasi penghapusan
+   - **Catatan**: Menghapus semua transaksi akan mereset stok semua produk menjadi 0
+5. **Import CSV**:
+   - Klik "Import CSV"
+   - Pilih file CSV yang berisi data transaksi
+   - Data akan diimpor dan diperbarui jika transaksi sudah ada
 6. **Export CSV**:
    - Klik "Export CSV"
    - Pilih lokasi penyimpanan file

@@ -49,7 +49,7 @@ public class Transaction {
             int numericId = Integer.parseInt(id);
             return String.format("TR-%03d", numericId);
         } catch (NumberFormatException e) {
-            return id; 
+            return id;
         }
     }
 }

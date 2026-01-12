@@ -91,7 +91,7 @@ public class ProductRepository {
             ps.setString(3, name);
             ps.setInt(4, price);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,7 +110,7 @@ public class ProductRepository {
             ps.setInt(4, price);
             ps.setInt(5, stock);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,7 +123,7 @@ public class ProductRepository {
 
             ps.setString(1, id);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +142,7 @@ public class ProductRepository {
             ps.setInt(3, price);
             ps.setString(4, id);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +158,7 @@ public class ProductRepository {
             ps.setInt(1, newStock);
             ps.setString(2, productId);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,7 +172,7 @@ public class ProductRepository {
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,7 +191,7 @@ public class ProductRepository {
             ps.setInt(4, stock);
             ps.setString(5, id);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit(); 
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -205,7 +205,7 @@ public class ProductRepository {
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (SQLException e) {
             e.printStackTrace();

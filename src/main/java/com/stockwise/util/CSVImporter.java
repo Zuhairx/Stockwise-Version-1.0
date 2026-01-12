@@ -19,22 +19,21 @@ public class CSVImporter {
         List<String[]> transactions = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // Skip header
+            String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
-                if (fields.length >= 5) { // ID,Product,Type,Qty,Date
+                if (fields.length >= 5) {
                     transactions.add(fields);
                 }
             }
 
-            // Insert into database
             TransactionRepository repo = new TransactionRepository();
             ProductRepository productRepo = new ProductRepository();
             DateTimeFormatter[] formatters = {
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T' HH:mm")
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T' HH:mm")
             };
 
             for (String[] fields : transactions) {
@@ -48,37 +47,38 @@ public class CSVImporter {
                         date = LocalDateTime.parse(fields[4].trim(), formatter);
                         break;
                     } catch (Exception e) {
-                        // try next
+
                     }
                 }
                 if (date == null) {
                     throw new Exception("Unable to parse date: " + fields[4].trim());
                 }
 
-                // Find product by name
                 Product product = productRepo.findByName(productName);
                 if (product != null) {
-                    // Check if transaction exists
+
                     Transaction existingTransaction = repo.findById(id);
                     if (existingTransaction != null) {
-                        // Transaction exists, check if qty and type are the same
+
                         if (existingTransaction.getQuantity() == qty && existingTransaction.getType().equals(type)) {
                             throw new Exception("Stock & Type is still the same for transaction ID: " + id);
                         }
-                        // Revert old stock change
+
                         int currentStock = product.getStock();
-                        int revertStock = existingTransaction.getType().equals("IN") ? currentStock - existingTransaction.getQuantity() : currentStock + existingTransaction.getQuantity();
+                        int revertStock = existingTransaction.getType().equals("IN")
+                                ? currentStock - existingTransaction.getQuantity()
+                                : currentStock + existingTransaction.getQuantity();
                         productRepo.updateStock(product.getId(), revertStock);
-                        // Update transaction
+
                         repo.insertOrUpdateWithId(id, product.getId(), type, qty, date);
-                        // Apply new stock change
+
                         currentStock = revertStock;
                         int newStock = type.equals("IN") ? currentStock + qty : currentStock - qty;
                         productRepo.updateStock(product.getId(), newStock);
                     } else {
-                        // New transaction
+
                         repo.insertOrUpdateWithId(id, product.getId(), type, qty, date);
-                        // Update product stock
+
                         int currentStock = product.getStock();
                         int newStock = type.equals("IN") ? currentStock + qty : currentStock - qty;
                         productRepo.updateStock(product.getId(), newStock);
@@ -97,10 +97,10 @@ public class CSVImporter {
         List<Product> products = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // Skip header
+            String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
-                if (fields.length >= 6) { // Now expecting 6 fields: No, ID, Category, Name, Price, Stock
+                if (fields.length >= 6) {
                     String id = fields[1].trim();
                     String category = fields[2].trim();
                     String name = fields[3].trim();
@@ -112,15 +112,14 @@ public class CSVImporter {
                 }
             }
 
-            // Insert or update into database
             ProductRepository repo = new ProductRepository();
             for (Product p : products) {
                 Product existing = repo.findById(p.getId());
                 if (existing != null) {
-                    // Update existing product
+
                     repo.updateWithStock(p.getId(), p.getName(), p.getCategory(), p.getPrice(), p.getStock());
                 } else {
-                    // Insert new product
+
                     repo.saveWithStock(p.getId(), p.getName(), p.getCategory(), p.getPrice(), p.getStock());
                 }
             }

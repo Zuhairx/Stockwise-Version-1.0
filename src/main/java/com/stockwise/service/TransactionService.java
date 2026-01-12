@@ -37,32 +37,32 @@ public class TransactionService {
     }
 
     public void deleteTransaction(String id) {
-        // Fetch the transaction to reverse the stock change
+
         Transaction transaction = transactionRepo.findById(id);
         if (transaction != null) {
-            // Get the product and current stock
+
             Product product = productRepo.findById(transaction.getProductId());
             if (product != null) {
                 int currentStock = product.getStock();
                 int quantity = transaction.getQuantity();
                 int newStock;
 
-                // Reverse the stock change: if IN, subtract; if OUT, add back
+
                 if ("IN".equals(transaction.getType())) {
                     newStock = currentStock - quantity;
                 } else if ("OUT".equals(transaction.getType())) {
                     newStock = currentStock + quantity;
                 } else {
-                    // Invalid type, skip stock update
+
                     newStock = currentStock;
                 }
 
-                // Update the stock
+              
                 productRepo.updateStock(transaction.getProductId(), newStock);
             }
         }
 
-        // Delete the transaction
+
         transactionRepo.delete(id);
     }
 

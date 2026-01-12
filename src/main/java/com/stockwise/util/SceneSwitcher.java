@@ -13,15 +13,12 @@ public class SceneSwitcher {
                     .getScene().getWindow();
 
             Scene scene = new Scene(
-                    FXMLLoader.load(SceneSwitcher.class.getResource(fxml))
-            );
+                    FXMLLoader.load(SceneSwitcher.class.getResource(fxml)));
 
             scene.getStylesheets().add(
                     SceneSwitcher.class
                             .getResource("/css/style.css")
-                            .toExternalForm()
-            );
-
+                            .toExternalForm());
 
             stage.setScene(scene);
             stage.show();
@@ -30,7 +27,7 @@ public class SceneSwitcher {
             e.printStackTrace();
         }
     }
-    
+
     public static void switchTo(String fxml) {
         try {
             Stage stage = (Stage) Stage.getWindows()
@@ -38,14 +35,12 @@ public class SceneSwitcher {
                     .get(0);
 
             Scene scene = new Scene(
-                    FXMLLoader.load(SceneSwitcher.class.getResource(fxml))
-            );
+                    FXMLLoader.load(SceneSwitcher.class.getResource(fxml)));
 
             scene.getStylesheets().add(
                     SceneSwitcher.class
                             .getResource("/css/style.css")
-                            .toExternalForm()
-            );
+                            .toExternalForm());
 
             stage.setScene(scene);
             stage.show();

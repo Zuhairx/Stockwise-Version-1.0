@@ -56,7 +56,7 @@ public class TransactionRepository {
             ps.setString(3, type);
             ps.setInt(4, qty);
             int rowsAffected = ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
             if (rowsAffected > 0) {
                 System.out.println("Transaction inserted successfully: " + transactionId + ", " + productId + ", "
                         + type + ", " + qty);
@@ -83,7 +83,7 @@ public class TransactionRepository {
             ps.setInt(4, qty);
             ps.setTimestamp(5, Timestamp.valueOf(date));
             int rowsAffected = ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
             if (rowsAffected > 0) {
                 System.out.println("Transaction inserted successfully: " + transactionId + ", " + productId + ", "
                         + type + ", " + qty + ", " + date);
@@ -109,7 +109,7 @@ public class TransactionRepository {
             ps.setInt(4, qty);
             ps.setTimestamp(5, Timestamp.valueOf(date));
             int rowsAffected = ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
             if (rowsAffected > 0) {
                 System.out.println("Transaction inserted or updated successfully: " + id + ", " + productId + ", "
                         + type + ", " + qty + ", " + date);
@@ -173,7 +173,7 @@ public class TransactionRepository {
 
             ps.setString(1, id);
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,7 +187,7 @@ public class TransactionRepository {
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.executeUpdate();
-            conn.commit(); // Ensure commit
+            conn.commit();
 
         } catch (SQLException e) {
             e.printStackTrace();
