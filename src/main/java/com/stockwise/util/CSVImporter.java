@@ -61,9 +61,9 @@ public class CSVImporter {
                     // Check if transaction exists
                     Transaction existingTransaction = repo.findById(id);
                     if (existingTransaction != null) {
-                        // Transaction exists, check if qty is the same
-                        if (existingTransaction.getQuantity() == qty) {
-                            throw new Exception("Stock is still the same for transaction ID: " + id);
+                        // Transaction exists, check if qty and type are the same
+                        if (existingTransaction.getQuantity() == qty && existingTransaction.getType().equals(type)) {
+                            throw new Exception("Stock & Type is still the same for transaction ID: " + id);
                         }
                         // Revert old stock change
                         int currentStock = product.getStock();
