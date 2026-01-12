@@ -165,6 +165,20 @@ public class ProductRepository {
         }
     }
 
+    public void resetAllStocksToZero() {
+        String sql = "UPDATE products SET stock=0";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.executeUpdate();
+            conn.commit(); // Ensure commit
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateWithStock(String id, String name, String category, int price, int stock) {
         String sql = "UPDATE products SET product_name=?, product_category=?, price=?, stock=? WHERE product_id=?";
 

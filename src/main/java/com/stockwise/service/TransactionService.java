@@ -68,6 +68,7 @@ public class TransactionService {
 
     public void deleteAllTransactions() {
         transactionRepo.deleteAll();
+        productRepo.resetAllStocksToZero();
     }
 
 }

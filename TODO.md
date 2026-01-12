@@ -1,6 +1,2 @@
-- [x] Add findById method to TransactionRepository.java to retrieve transaction details by ID
-- [x] Modify deleteTransaction method in TransactionService.java to reverse stock changes before deleting the transaction
-- [x] Update TransactionController to refresh product list after deletion to reflect stock changes
-- [x] Test the fix by compiling the application and verifying no compilation errors
-- [x] Fix calculation error in CSV import for updating transactions: check if transaction exists, revert old stock change, apply new one, warn if qty unchanged
-- [x] Remove validation warning when updating transaction with same quantity but different type (e.g., IN to OUT)
+- [x] Add resetAllStocksToZero method in ProductRepository.java
+- [x] Modify deleteAllTransactions in TransactionService.java to reset all product stocks to 0 after deleting transactions
