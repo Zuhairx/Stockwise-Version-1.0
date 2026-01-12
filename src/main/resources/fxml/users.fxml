@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+       xmlns:fx="http://javafx.com/fxml"
+       fx:controller="com.stockwise.controller.UsersController"
+       spacing="15"
+    styleClass="menu-root">
+
+    <fx:include source="header.fxml" fx:id="header" />
+
+    <VBox spacing="12" styleClass="card">
+
+        <Label text="User Management"
+            styleClass="section-title" />
+
+    </VBox>
+
+    <VBox spacing="10" styleClass="card">
+
+        <Label text="User List"
+            styleClass="section-title" />
+
+        <TableView fx:id="usersTable"
+                   styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="idColumn"
+                             text="ID"
+                             prefWidth="60" />
+                <TableColumn fx:id="usernameColumn"
+                             text="Username"
+                             prefWidth="260" />
+                <TableColumn fx:id="passwordColumn"
+                             text="Password Hash"
+                             prefWidth="300" />
+                <TableColumn fx:id="roleColumn"
+                             text="Role"
+                             prefWidth="150" />
+            </columns>
+        </TableView>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+
+            <Button text="Refresh"
+                    onAction="#refreshUsers"
+                    styleClass="secondary-button" />
+
+            <Button text="Delete"
+                    onAction="#deleteUser"
+                    styleClass="danger-button" />
+
+        </HBox>
+
+    </VBox>
+
+</VBox>

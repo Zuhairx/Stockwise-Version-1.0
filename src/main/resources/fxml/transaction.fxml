@@ -51,9 +51,13 @@
                 styleClass="primary-button"
             />
 
+             <Button text="Import CSV"
+                onAction="#importCSV2"
+                styleClass="CSV-button"
+            />
             <Button text="Export CSV"
-                onAction="#exportCSV"
-                styleClass="secondary-button"
+                onAction="#exportCSV2"
+                styleClass="CSV-button"
             />
         </HBox>
     </VBox>

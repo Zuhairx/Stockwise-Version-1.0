@@ -21,7 +21,6 @@ public class AuthService {
     }
 
     public boolean register(String username, String password, String role) {
-        // Check if user already exists
         if (userRepository.findByUsername(username) != null) {
             return false;
         }

@@ -32,6 +32,54 @@ public class ProductRepository {
         return products;
     }
 
+    public Product findById(String id) {
+        String sql = "SELECT * FROM products WHERE product_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Product(
+                            rs.getString("product_id"),
+                            rs.getString("product_category"),
+                            rs.getString("product_name"),
+                            rs.getInt("price"),
+                            rs.getInt("stock"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Product findByName(String name) {
+        String sql = "SELECT * FROM products WHERE product_name = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, name);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Product(
+                            rs.getString("product_id"),
+                            rs.getString("product_category"),
+                            rs.getString("product_name"),
+                            rs.getInt("price"),
+                            rs.getInt("stock"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void save(String id, String name, String category, int price) {
         String sql = "INSERT INTO products (product_id,  product_category, product_name, price) VALUES (?, ?, ?, ?)";
 
@@ -43,6 +91,26 @@ public class ProductRepository {
             ps.setString(3, name);
             ps.setInt(4, price);
             ps.executeUpdate();
+            conn.commit(); // Ensure commit
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveWithStock(String id, String name, String category, int price, int stock) {
+        String sql = "INSERT INTO products (product_id, product_category, product_name, price, stock) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+            ps.setString(2, category);
+            ps.setString(3, name);
+            ps.setInt(4, price);
+            ps.setInt(5, stock);
+            ps.executeUpdate();
+            conn.commit(); // Ensure commit
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,6 +123,7 @@ public class ProductRepository {
 
             ps.setString(1, id);
             ps.executeUpdate();
+            conn.commit(); // Ensure commit
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,6 +142,7 @@ public class ProductRepository {
             ps.setInt(3, price);
             ps.setString(4, id);
             ps.executeUpdate();
+            conn.commit(); // Ensure commit
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,8 +158,28 @@ public class ProductRepository {
             ps.setInt(1, newStock);
             ps.setString(2, productId);
             ps.executeUpdate();
+            conn.commit(); // Ensure commit
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateWithStock(String id, String name, String category, int price, int stock) {
+        String sql = "UPDATE products SET product_name=?, product_category=?, price=?, stock=? WHERE product_id=?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, name);
+            ps.setString(2, category);
+            ps.setInt(3, price);
+            ps.setInt(4, stock);
+            ps.setString(5, id);
+            ps.executeUpdate();
+            conn.commit(); // Ensure commit
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -101,6 +191,7 @@ public class ProductRepository {
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.executeUpdate();
+            conn.commit(); // Ensure commit
 
         } catch (SQLException e) {
             e.printStackTrace();

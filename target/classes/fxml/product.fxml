@@ -55,6 +55,15 @@
                 onAction="#handleUpdate"
                 styleClass="secondary-button" />
 
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button text="Import CSV"
+                onAction="#importCSV1"
+                styleClass="CSV-button" />
+
+            <Button text="Export CSV"
+                onAction="#exportCSV1"
+                styleClass="CSV-button" />
         </HBox>
 
     </VBox>
@@ -68,7 +77,7 @@
             <columns>
                 <TableColumn fx:id="noCol" text="No" />
                 <TableColumn fx:id="idCol" text="Product ID" />
-                <TableColumn fx:id="catCol" text="Type" />
+                <TableColumn fx:id="catCol" text="Category" />
                 <TableColumn fx:id="nameCol" text="Name" />
                 <TableColumn fx:id="priceCol" text="Price" />
                 <TableColumn fx:id="stockCol" text="Stock" />

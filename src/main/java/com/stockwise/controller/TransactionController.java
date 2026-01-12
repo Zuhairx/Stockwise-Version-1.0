@@ -160,11 +160,6 @@ public class TransactionController implements Initializable {
         masterData = FXCollections.observableArrayList();
         tableView.setItems(masterData);
 
-        // Import transactions from CSV if database is empty
-        if (transactionRepo.findAll().isEmpty()) {
-            CSVImporter.importTransactions("transactions.csv");
-        }
-
         loadTable();
 
     }
@@ -209,33 +204,14 @@ public class TransactionController implements Initializable {
     }
 
     @FXML
-    private void exportCSV() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save CSV File");
-        fileChooser.setInitialFileName("transactions.csv");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-
-        Stage stage = (Stage) tableView.getScene().getWindow();
-        File selectedFile = fileChooser.showSaveDialog(stage);
-
-        if (selectedFile != null) {
-            List<Transaction> transactions = transactionRepo.findAll();
-            CSVExporter.exportTransactions(transactions, selectedFile);
-            if (transactions.isEmpty()) {
-                showAlert("Info", "No transactions to export. CSV file created with header only: " + selectedFile.getName());
-            } else {
-                showAlert("Success", "Transactions exported to " + selectedFile.getName());
-            }
-        }
-    }
-
-    @FXML
     private void handleDelete2() {
         Transaction selected = tableView.getSelectionModel().getSelectedItem();
         if (selected != null) {
             transactionService.deleteTransaction(selected.getId());
             loadTable();
             tableView.refresh();
+            productBox.setItems(
+                    FXCollections.observableArrayList(productService.getAllProducts()));
         }
     }
 
@@ -272,6 +248,49 @@ public class TransactionController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void exportCSV2() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save CSV File");
+        fileChooser.setInitialFileName("transactions.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        Stage stage = (Stage) tableView.getScene().getWindow();
+        File selectedFile = fileChooser.showSaveDialog(stage);
+
+        if (selectedFile != null) {
+            List<Transaction> transactions = transactionRepo.findAll();
+            CSVExporter.exportTransactions(transactions, selectedFile);
+            if (transactions.isEmpty()) {
+                showAlert("Info",
+                        "No transactions to export. CSV file created with header only: " + selectedFile.getName());
+            } else {
+                showAlert("Success", "Transactions exported to " + selectedFile.getName());
+            }
+        }
+    }
+
+    @FXML
+    private void importCSV2() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        Stage stage = (Stage) tableView.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                CSVImporter.importTransactions(selectedFile.getAbsolutePath());
+                showAlert("Success", "Transactions imported successfully from " + selectedFile.getName());
+                loadTable();
+                tableView.refresh();
+            } catch (Exception e) {
+                showAlert("Error", "Failed to import CSV: " + e.getMessage());
+            }
+        }
     }
 
 }

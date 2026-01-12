@@ -12,7 +12,9 @@ public class DBConnection {
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("✅ Connected to database: " + conn.getCatalog());
+            return conn;
         } catch (Exception e) {
             System.out.println("❌ Database connection failed");
             e.printStackTrace();

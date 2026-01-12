@@ -1,10 +1,15 @@
 package com.stockwise.controller;
 
+import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.stockwise.model.Product;
+import com.stockwise.repository.ProductRepository;
 import com.stockwise.service.ProductService;
+import com.stockwise.util.CSVExporter;
+import com.stockwise.util.CSVImporter;
 import com.stockwise.util.SceneSwitcher;
 
 import javafx.application.Platform;
@@ -17,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ProductController implements Initializable {
@@ -50,6 +56,7 @@ public class ProductController implements Initializable {
 
     private ObservableList<Product> masterData;
     private final ProductService service = new ProductService();
+    private final ProductRepository productRepo = new ProductRepository();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,6 +68,11 @@ public class ProductController implements Initializable {
             scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
                 if (e.getCode() == KeyCode.ESCAPE) {
                     SceneSwitcher.switchTo("/fxml/dashboard.fxml");
+                }
+            });
+            scene.getWindow().showingProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    reload();
                 }
             });
         });
@@ -237,4 +249,47 @@ public class ProductController implements Initializable {
         alert.showAndWait();
 
     }
+
+    @FXML
+    private void exportCSV1() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save CSV File");
+        fileChooser.setInitialFileName("products.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        Stage stage = (Stage) tableView.getScene().getWindow();
+        File selectedFile = fileChooser.showSaveDialog(stage);
+
+        if (selectedFile != null) {
+            List<Product> products = productRepo.findAll();
+            if (products.isEmpty()) {
+                showAlert("Info",
+                        "No products to export. CSV file created with header only: " + selectedFile.getName());
+            } else {
+                CSVExporter.exportProducts(products, selectedFile);
+                showAlert("Success", "Products exported to " + selectedFile.getName());
+            }
+        }
+    }
+
+    @FXML
+    private void importCSV1() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        Stage stage = (Stage) tableView.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                CSVImporter.importProducts(selectedFile.getAbsolutePath());
+                reload();
+                showAlert("Success", "Products imported successfully from " + selectedFile.getName());
+            } catch (Exception e) {
+                showAlert("Error", "Failed to import products: " + e.getMessage());
+            }
+        }
+    }
+
 }

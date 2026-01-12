@@ -52,6 +52,11 @@
                      <Button text="Transactions"
                             onAction="#goToTransaction"
                             styleClass="menu-button" />
+                      
+                     <Button fx:id="usersMenu"
+                            text="Users"
+                            onAction="#goToUsers"
+                            styleClass="menu-button" />
 
                      <Region VBox.vgrow="ALWAYS" />
 

@@ -1,3 +1,4 @@
+com\stockwise\controller\UsersController.class
 com\stockwise\model\Transaction.class
 com\stockwise\MainApp.class
 com\stockwise\util\CSVImporter.class

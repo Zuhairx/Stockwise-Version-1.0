@@ -14,9 +14,12 @@ import javafx.scene.control.TextField;
 
 public class LoginController {
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label errorLabel;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label errorLabel;
 
     private AuthService authService = new AuthService();
 
@@ -25,16 +28,14 @@ public class LoginController {
 
         User user = authService.login(
                 usernameField.getText(),
-                passwordField.getText()
-        );
+                passwordField.getText());
 
         if (user != null) {
             UserSession.set(user);
             SceneSwitcher.switchScene(event, "/fxml/dashboard.fxml");
-        } else if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+        } else if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             errorLabel.setText("Please input username and password");
-        }
-        else {
+        } else {
             errorLabel.setText("Username or password incorrect");
         }
     }

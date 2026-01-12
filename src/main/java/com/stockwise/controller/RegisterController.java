@@ -12,11 +12,16 @@ import javafx.scene.control.TextField;
 
 public class RegisterController {
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPasswordField;
-    @FXML private ComboBox<String> roleChoiceBox;
-    @FXML private Label statusLabel;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private ComboBox<String> roleChoiceBox;
+    @FXML
+    private Label statusLabel;
 
     private AuthService authService = new AuthService();
 
@@ -55,7 +60,7 @@ public class RegisterController {
         if (success) {
             statusLabel.setText("Registration Successfully!");
             statusLabel.setStyle("-fx-text-fill: green;");
-            // SceneSwitcher.switchScene(event, "/fxml/login.fxml");
+
         } else {
             statusLabel.setText("Registration failed. Username already exist.");
             statusLabel.setStyle("-fx-text-fill: red;");

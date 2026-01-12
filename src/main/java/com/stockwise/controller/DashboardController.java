@@ -16,6 +16,9 @@ public class DashboardController {
     private Button productMenu;
 
     @FXML
+    private Button usersMenu;
+
+    @FXML
     private Label productCountLabel;
 
     @FXML
@@ -29,9 +32,10 @@ public class DashboardController {
         if (!UserSession.get().getRole().equals("ADMIN")) {
             productMenu.setVisible(false);
             productMenu.setManaged(false);
+            usersMenu.setVisible(false);
+            usersMenu.setManaged(false);
         }
 
-    
         welcomeLabel.setText("Welcome " + UserSession.get().getUsername() + "!");
 
         ProductService productService = new ProductService();
@@ -45,6 +49,11 @@ public class DashboardController {
     @FXML
     private void goToProduct(ActionEvent event) {
         SceneSwitcher.switchScene(event, "/fxml/product.fxml");
+    }
+
+    @FXML
+    private void goToUsers(ActionEvent event) {
+        SceneSwitcher.switchScene(event, "/fxml/users.fxml");
     }
 
     @FXML

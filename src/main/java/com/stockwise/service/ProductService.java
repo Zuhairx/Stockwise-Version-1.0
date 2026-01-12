@@ -32,6 +32,10 @@ public class ProductService {
         repository.save(id, name, category, price);
     }
 
+    public void addProductWithStock(String id, String name, String category, int price, int stock) {
+        repository.saveWithStock(id, name, category, price, stock);
+    }
+
     public void deleteProduct(String id) {
         repository.delete(id);
     }
