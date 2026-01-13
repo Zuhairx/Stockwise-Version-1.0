@@ -8,4 +8,4 @@
 7. Fix update nama product di menu transaksi ✅
 8. Fix transaksi date tidak terupdate ✅
 9. Fix Number Column Hilang saat search product & transaksi ✅
-10.Fix ururtan Number Column pada tabel product & transaksi ✅
+10. Fix ururtan Number Column pada tabel product & transaksi ✅
