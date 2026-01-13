@@ -152,6 +152,5 @@ Setelah login, Anda akan melihat dashboard dengan:
 - Header harus ada di baris pertama
 - Data harus sesuai tipe (price dan stock harus angka)
 
-
 ## Dukungan
 Untuk pertanyaan atau masalah, hubungi developer: ZuhairX
