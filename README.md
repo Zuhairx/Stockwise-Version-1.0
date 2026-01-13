@@ -75,7 +75,7 @@ Setelah login, Anda akan melihat dashboard dengan:
    - Klik "Export CSV"
    - Pilih lokasi penyimpanan file
 
-notes: **tombol clear field -> untuk menghapus semua teks field yang ada
+*notes: tombol clear field -> untuk menghapus semua teks field yang ada
 
 <img width="1043" height="1020" alt="image" src="https://github.com/user-attachments/assets/8e18fc6a-b18e-4d80-a102-62ec32bbddd2" />
 
